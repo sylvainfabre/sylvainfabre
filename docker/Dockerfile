@@ -14,7 +14,9 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
 
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install pdo pdo_mysql gd opcache intl zip calendar dom mbstring zip gd xsl
-# ctype filter json openssl pdo_sqlite session simplexml sodium tokenizer xml xmlwriter xsl
+RUN apt install -y libsqlite3-dev
+RUN apt install -y libsqlite3-0
+RUN docker-php-ext-install ctype json pdo_sqlite session simplexml tokenizer xml xmlwriter xsl
 RUN pecl install apcu && docker-php-ext-enable apcu
 
 WORKDIR /var/www/
